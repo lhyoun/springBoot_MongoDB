@@ -22,20 +22,20 @@
 		</thead>
 		
 		<tbody>
-			<c:forEach var="board" items="${boards.content}">
+			<c:forEach var="board" items="${boards}">
 				<tr>
-					<td>${board.id}</td>
-					<td><a href="/board/${board.id}">${board.title}</a></td>
+					<td>${board.bno}</td>
+					<td><a href="/board/${board.bno}">${board.title}</a></td>
 					<!-- <td>${board.content}</td> -->
-					<td>${board.readCount}</td>
-					<td>${board.date}</td>
+					<td>a</td>
+					<td>s</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 	<br>
 	<br>
-	<div class="row">
+	<%-- <div class="row">
 		<div class="col-4"></div>	
 		<div class="col-2">
 			<button type="button" class="btn btn-dark" 
@@ -46,7 +46,7 @@
 			onclick="location.href='?page=${boards.pageable.pageNumber+1}' ">다음</button>
 		</div>
 		<div class="col-4"></div>
-	</div>
+	</div> --%>
 </main>
 </div>
 

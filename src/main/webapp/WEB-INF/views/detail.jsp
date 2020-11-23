@@ -42,11 +42,11 @@
 			<div class="col-4"></div>
 			<div class="col-2">
 				<button type="button" class="btn btn-dark"
-					onclick="deleteBoard(${board.id})">삭제</button>
+					onclick="deleteBoard(${board.bno})">삭제</button>
 			</div>
 			<div class="col-2">
 				<button type="button" class="btn btn-dark"
-					onclick="updateBoard(${board.id})">수정</button>
+					onclick="updateBoard(${board.bno})">수정</button>
 			</div>
 			<div class="col-4"></div>
 		</div>
@@ -94,11 +94,12 @@ $(document).ready(function() {
 		console.log("content", content);
 
 		let board = {
+			bno: id,
 			title: title,
 			content: content
 		};
 
-		fetch("/board/"+id, {
+		fetch("/board/update", {
 			method: "put",
 			headers: {
 				'Content-Type': 'application/json; charset=utf-8',

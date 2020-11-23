@@ -3,6 +3,7 @@ package org.knr.controller;
 import java.util.List;
 
 import org.knr.domain.Board;
+import org.knr.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,15 +26,15 @@ import lombok.AllArgsConstructor;
 
 @Controller
 @RequestMapping("/board")
-@AllArgsConstructor
 public class BoardConroller {
+	
 	@Autowired
-	MongoTemplate mongoTemplate;
+	BoardService boardService;
 
-	// http://localhost:8000/board/saveForm
-	@GetMapping("/saveForm")
-	public String saveForm() {
-		return "saveForm";
+	// register Form
+	@GetMapping({"/registerForm", "saveForm"})
+	public String registerForm() {
+		return "registerForm";
 	}
 
 	// 글쓰기
@@ -41,13 +42,44 @@ public class BoardConroller {
 	@ResponseBody
 	public String save(@RequestBody Board board) {
 		
-		board.setBno(1l);
+		board.setBno(11l);
 		board.setWriter("dd");
-		mongoTemplate.insert(board);
+		boardService.regisert(board);
 
 		// boardService.createBoard(dto);
 		System.out.println("ccc");
+		return "redirect:/board/list";
+	}
+	
+	
+	@GetMapping({"","/","/list"})
+	public String list(Model model) {
+		model.addAttribute("boards", boardService.findAll());
+		return "list";
+	}
+	
+	@DeleteMapping("/{id}")
+	@ResponseBody
+	public String delete(@PathVariable Long id) {
+		boardService.remove(id);
 		return "ok";
+	}	
+	
+	// 글 수정
+	@PutMapping("/update")
+	@ResponseBody
+	public String update(@RequestBody Board board) {
+		System.out.println("aaa");
+		System.out.println(board);
+		boardService.modify(board);
+		return "ok";
+	}
+	
+	
+	@GetMapping("/{id}")
+	public String detail(@PathVariable Long id, Model model){
+		model.addAttribute("board", boardService.find(id));
+		return "detail";
 	}
 }
 

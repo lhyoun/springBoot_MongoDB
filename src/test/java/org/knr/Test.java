@@ -23,7 +23,6 @@ public class Test {
 		Board board = new Board(3L, "title3", "content3", "user03");
 		mongoTemplate.insert(board);
 		log.info("board insert"+board);
-		
 	}
 	
 	@org.junit.jupiter.api.Test
